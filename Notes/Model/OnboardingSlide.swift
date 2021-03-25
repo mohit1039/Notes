@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+// Holds different values of onboarding screen
 struct OnboardingSlide {
     let title: String
     let description: String

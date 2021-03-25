@@ -7,7 +7,7 @@
 
 
 import UIKit
-
+// seting cornerRadius for next button
 extension UIView {
     @IBInspectable var cornerRadius: CGFloat {
         get {return cornerRadius}
