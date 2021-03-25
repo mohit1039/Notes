@@ -34,7 +34,7 @@ class EditNotesVC: UIViewController , UITextViewDelegate{
         }
     }
     
-
+    /// Method will set nil value in noteviewtext when user start editing
     func textViewDidBeginEditing(_ textView: UITextView) {
         if notesTextView.text == "Write your notes here" {
             notesTextView.text = ""
@@ -72,6 +72,8 @@ class EditNotesVC: UIViewController , UITextViewDelegate{
         }
     }
     
+    
+    /// Method will update the data of selected note data to Coredata
     func update(completion : (_ complete : Bool) -> ()) {
         guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
         
@@ -97,7 +99,7 @@ class EditNotesVC: UIViewController , UITextViewDelegate{
         }
         
     }
-    
+    /// Method will save the data recieve the data and assign the value to variable
     func initData(note : Note , cellTap : Bool) {
         self.note = note
         self.noteTitle = note.title
@@ -107,7 +109,7 @@ class EditNotesVC: UIViewController , UITextViewDelegate{
         self.cellTap = cellTap
     }
     
-    
+    /// Method will save new note to coredata
     func save(completion: (_ complete : Bool) -> ()) {
         guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
         let note = Note(context: managedContext)
@@ -134,7 +136,8 @@ class EditNotesVC: UIViewController , UITextViewDelegate{
         
     }
     
-    
+    /// Method will create the alert
+    /// - Parameter message : message to display , title : title of the alert
     func commonAlert(message : String, title : String) {
         let alertController = UIAlertController(title: title, message:
                message, preferredStyle: .alert)
