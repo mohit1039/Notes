@@ -50,7 +50,7 @@ class MainVC: UIViewController {
         }
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+    /// function will call fetch function and on completion it will show the tableview
     func fetchCoreDataObject() {
         self.fetch { (complete) in
             if complete{
@@ -71,7 +71,7 @@ class MainVC: UIViewController {
 
 
 extension MainVC {
-    
+    ///Method fetch the data from coredata and save it to note
     func fetch(completion : (_ complete: Bool) -> ()){
         guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
         
@@ -92,6 +92,8 @@ extension MainVC {
     }
     
     
+    ///Method will remove the note
+    /// - Parameter indexPath : Index paths is an item’s position inside a table view    
     func removeNotes(atIndexPath indexPath: IndexPath) {
         guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
         if searching {
@@ -107,7 +109,10 @@ extension MainVC {
             debugPrint("Could not remove: \(error.localizedDescription)")
         }
     }
-    
+    ///Method will fetch search data from notes based on title
+    /// - Parameter stitle : text from searchbar textfield
+    /// - Returns : array of notes data
+    /// - Array
     func fetchSearchData(stitle:String) -> [Note]
     {
         
@@ -182,7 +187,9 @@ extension MainVC : UITableViewDelegate, UITableViewDataSource {
         }
         
     }
-    
+    ///Method will push the view to another view
+    /// - Parameter 
+    /// - note : Array of data from coredata Note , row : row of cell selected
     func pushView(note : [Note],row : Int){
         guard let vc = storyboard?.instantiateViewController(identifier: "new") as? EditNotesVC else {
             return
@@ -252,7 +259,7 @@ extension MainVC : UISearchBarDelegate{
 
 
 extension MainVC{
-    
+    /// Method will change the password of notes app
     func changePassword(){
         let alert = UIAlertController(title: "Change Password", message: "Enter your Password", preferredStyle: .alert)
         alert.addTextField()
@@ -289,6 +296,11 @@ extension MainVC{
         self.present(alert, animated: true)
         
     }
+    
+    
+    /// Method will compare the password entered for accesing the note
+    /// - Parameter pass : password
+    /// - Returns : Boolean value
     func passwordCheck(pass : String) -> Bool {
         let password = KeychainWrapper.standard.string(forKey: "password")
         print(password!)
@@ -301,12 +313,18 @@ extension MainVC{
             return false
         }
     }
+    
+    /// Method will create alert for different operation
+    /// - Parameter message : message to display , title : title of the alert
     func commonAlert(message : String, title : String) {
         let alertController = UIAlertController(title: title, message:
                message, preferredStyle: .alert)
            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
            self.present(alertController, animated: true, completion: nil)
     }
+    
+    /// Method will alert to check password to access the cell and perform the operation whether to move forward or not
+    /// - Parameter row : row of cell
     func createAlert(row:Int){
         
         let alert = UIAlertController(title: "Submit", message: "Enter your Password", preferredStyle: .alert)
